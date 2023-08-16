@@ -15,7 +15,7 @@ require('./db/conn.js');
 
 // // Twilio credentials
 const accountSid = 'AC1d93099c876ae4eae7b6ecd54418eba4';
-const authToken = '911f7758066dae6cd3344ba04ff5319c';
+const authToken = '929455336cffbcc2c8460c3bbb0b9673';
 const client = twilio(accountSid, authToken);
 // Twilio Number = +17069899153
 
@@ -28,10 +28,11 @@ app.post('/booktable', async(req, res) => {
 
     //Object Destructuring
     const { name, phone } = req.body;
-    const num = "+919106255238";
+    const newPhone = phone;
+    const num = process.env.num;
 
     const sms = await client.messages.create({
-        body: "Your Table has been booked...\n Thank You, Have a great meal.",
+        body: `\nName: ${name}\nPhone No.: ${newPhone}\nYour Table has been booked...\nThank You, Have A Great Healthy Meal!`,
         from: '+17069899153',
         to: num
     });
